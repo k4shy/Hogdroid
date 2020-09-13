@@ -43,16 +43,18 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         try {
             String name = characterData.get(position).get("name").toString();
             holder.characterName.setText(name);
-            if (name.equals("Harry Potter") && characterData.get(position).get("alias").equals("The Boy Who Lived")) {
-                System.out.println(characterData.get(position));
-                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
-                    @Override
-                    public boolean onLongClick(View v) {
-                        holder.profilepic.setImageResource(R.drawable.hp);
-                        return false;
+            holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View v) {
+                    if (name.equals("Harry Potter")) {
+                        holder.profilepic.setVisibility(View.GONE);
+                        holder.profilepicHp.setVisibility(View.VISIBLE);
+
                     }
-                });
-            }
+                    return false;
+                }
+            });
+
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -63,10 +65,12 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView characterName;
         ImageView profilepic;
+        ImageView profilepicHp;
         ViewHolder(View itemView) {
             super(itemView);
             characterName = itemView.findViewById(R.id.character_name);
             profilepic = itemView.findViewById(R.id.profile_pic);
+            profilepicHp = itemView.findViewById(R.id.profile_pic_hp);
 
             itemView.setOnClickListener(this);
         }

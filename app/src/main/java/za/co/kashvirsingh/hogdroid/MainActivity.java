@@ -163,7 +163,9 @@ public class MainActivity extends AppCompatActivity {
                                     characterList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + character.getString(key));
                                 }
                             }
-
+                            if (characterList.size() > 1) {
+                                characterList.remove(characterList.size() - 1);
+                            }
                             DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
                             myNames.setAdapter(adapter);
                             dialog.show();
@@ -206,7 +208,9 @@ public class MainActivity extends AppCompatActivity {
                                     spellList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + spell.getString(key));
                                 }
                             }
-
+                            if (spellList.size() > 1) {
+                                spellList.remove(spellList.size() - 1);
+                            }
                             DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, spellList);
                             myNames.setAdapter(adapter);
                             dialog.show();

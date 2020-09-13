@@ -112,6 +112,9 @@ public class CharacterActivity extends AppCompatActivity {
 
                                     }
                                 }
+                                if (characterList.size() > 1) {
+                                    characterList.remove(characterList.size() - 1);
+                                }
                                 DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
                                 myNames.setAdapter(adapter);
                                 dialog.show();
