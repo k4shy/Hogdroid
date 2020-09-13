@@ -16,23 +16,21 @@ import java.util.List;
 
 import za.co.kashvirsingh.hogdroid.R;
 
-public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder>{
+public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder> {
 
-    private List<JSONObject> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private List<JSONObject> spellData;
+    private LayoutInflater layoutInflater;
+    private ItemClickListener clickListener;
 
     public SpellsAdapter(Context context, List<JSONObject> data) {
-        this.mInflater = LayoutInflater.from(context);
-
-        this.mData = data;
+        this.layoutInflater = LayoutInflater.from(context);
+        this.spellData = data;
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.spell_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.spell_list_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -41,13 +39,12 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
     public void onBindViewHolder(@NonNull SpellsAdapter.ViewHolder holder, int position) {
 
         try {
-            String name = mData.get(position).get("spell").toString();
+            String name = spellData.get(position).get("spell").toString();
             holder.spellName.setText(name);
 
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -55,17 +52,15 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
         ViewHolder(View itemView) {
             super(itemView);
             spellName = itemView.findViewById(R.id.spell_name);
-
-
             itemView.setOnClickListener(this);
         }
 
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
+            if (clickListener != null) {
                 try {
-                    mClickListener.onItemClick(view, mData.get(getAdapterPosition()).getString("_id"));
+                    clickListener.onItemClick(view, spellData.get(getAdapterPosition()).getString("_id"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -74,12 +69,12 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
     }
 
     public void setOnItemClickListener(ItemClickListener clickListener) {
-        mClickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return spellData.size();
     }
 
     public interface ItemClickListener {

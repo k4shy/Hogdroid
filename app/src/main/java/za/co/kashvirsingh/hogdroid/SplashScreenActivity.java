@@ -21,11 +21,9 @@ public class SplashScreenActivity extends AppCompatActivity implements EventList
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         intent = new Intent(this, MainActivity.class);
-
         new APIAsyncTask(this,getApplicationContext(),HOUSE).execute();
         new APIAsyncTask(this,getApplicationContext(),CHARACTERS).execute();
         new APIAsyncTask(this,getApplicationContext(),SPELLS).execute();
-
     }
 
     @Override

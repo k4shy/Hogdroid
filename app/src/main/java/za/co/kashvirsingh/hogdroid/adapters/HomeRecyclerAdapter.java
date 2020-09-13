@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.core.app.ActivityOptionsCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -22,38 +21,32 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
-import za.co.kashvirsingh.hogdroid.API.APIRequests;
 import za.co.kashvirsingh.hogdroid.CharacterActivity;
 import za.co.kashvirsingh.hogdroid.R;
-import za.co.kashvirsingh.hogdroid.interfaces.Callback;
 
-public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder>  {
+public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapter.ViewHolder> {
 
-    private List<JSONObject> mData;
+    private List<JSONObject> homeData;
     private List<JSONObject> characterData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private LayoutInflater layoutInflater;
+    private ItemClickListener clickListener;
 
     boolean showContent = true;
     int rotationAngle = 0;
 
-    // data is passed into the constructor
-    public HomeRecyclerAdapter(Context context, List<JSONObject> data , List<JSONObject> characterData) {
-        this.mInflater = LayoutInflater.from(context);
-        this.mData = data;
+    public HomeRecyclerAdapter(Context context, List<JSONObject> data, List<JSONObject> characterData) {
+        this.layoutInflater = LayoutInflater.from(context);
+        this.homeData = data;
         this.characterData = characterData;
-
     }
 
-    // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.home_card, parent, false);
+        View view = layoutInflater.inflate(R.layout.home_card, parent, false);
 
         return new ViewHolder(view);
     }
 
-    // binds the data to the TextView in each row
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         String house = "";
@@ -64,11 +57,10 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         String school = "n/a";
         StringBuilder values = new StringBuilder("n/a");
         StringBuilder color = new StringBuilder("n/a");
-        List<JSONObject> list = new ArrayList<>();
         List<String> membersList = new ArrayList<>();
 
         try {
-            house = mData.get(position).get("name").toString();
+            house = homeData.get(position).get("name").toString();
             if(house.length() > 0) {
                 switch (house.toLowerCase()) {
                     case "gryffindor":
@@ -85,35 +77,31 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                         break;
                 }
             }
-            headofHouse = mData.get(position).get("headOfHouse").toString();
-            mascot = mData.get(position).get("mascot").toString();
-            houseGhost = mData.get(position).get("houseGhost").toString();
-            founder = mData.get(position).get("founder").toString();
-            school = mData.get(position).get("school").toString();
-            if(mData.get(position).get("values").toString().startsWith("[")){
+            headofHouse = homeData.get(position).get("headOfHouse").toString();
+            mascot = homeData.get(position).get("mascot").toString();
+            houseGhost = homeData.get(position).get("houseGhost").toString();
+            founder = homeData.get(position).get("founder").toString();
+            school = homeData.get(position).get("school").toString();
+            if (homeData.get(position).get("values").toString().startsWith("[")) {
                 values = new StringBuilder();
                 String prefix = "";
-                JSONArray valuesArray = new JSONArray(mData.get(position).get("values").toString());
-                for(int i = 0; i< valuesArray.length();i++) {
+                JSONArray valuesArray = new JSONArray(homeData.get(position).get("values").toString());
+                for (int i = 0; i < valuesArray.length(); i++) {
                     values.append(prefix);
                     prefix = ", ";
                     values.append(valuesArray.getString(i));
                 }
             }
-            if(mData.get(position).get("colors").toString().startsWith("[")){
+            if (homeData.get(position).get("colors").toString().startsWith("[")) {
                 color = new StringBuilder();
                 String prefix = "";
-                JSONArray colorsArray = new JSONArray(mData.get(position).get("colors").toString());
-                for(int i = 0; i< colorsArray.length();i++) {
+                JSONArray colorsArray = new JSONArray(homeData.get(position).get("colors").toString());
+                for (int i = 0; i < colorsArray.length(); i++) {
                     color.append(prefix);
                     prefix = ", ";
                     color.append(colorsArray.getString(i));
                 }
             }
-
-//            values = new StringBuilder(mData.get(position).get("values").toString());
-//            color = mData.get(position).get("colors").toString();
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -179,17 +167,17 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             @Override
             public void onClick(View v) {
                 try {
-                    if(mData.get(position).get("members").toString().startsWith("[")){
-                        JSONArray membersArray = new JSONArray(mData.get(position).get("members").toString());
-                        for(int i = 0; i<membersArray.length(); i++) {
+                    if (homeData.get(position).get("members").toString().startsWith("[")) {
+                        JSONArray membersArray = new JSONArray(homeData.get(position).get("members").toString());
+                        for (int i = 0; i < membersArray.length(); i++) {
                             membersList.add(membersArray.getString(i));
                         }
                     }
                     List<JSONObject> jsonObjects = compareLists(characterData, membersList);
-                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(), holder.houseImage,"imageMain");
+                    ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(), holder.houseImage, "imageMain");
                     Intent in = new Intent((Activity) v.getContext(), CharacterActivity.class);
                     in.putExtra("members", jsonObjects.toString());
-                    if(finalHouse.length() > 0) {
+                    if (finalHouse.length() > 0) {
                         switch (finalHouse.toLowerCase()) {
                             case "gryffindor":
                                 in.putExtra("house_name", "gryffindor");
@@ -205,42 +193,11 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                                 break;
                         }
                     }
-                    v.getContext().startActivity(in,activityOptionsCompat.toBundle());
-
-
+                    v.getContext().startActivity(in, activityOptionsCompat.toBundle());
 
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                /*new APIRequests().sendRequest(v.getContext(), "characters", new Callback() {
-                    @Override
-                    public void onSuccessResponse(String result) {
-                        try {
-                            if(mData.get(position).get("members").toString().startsWith("[")){
-                                JSONArray membersArray = new JSONArray(mData.get(position).get("members").toString());
-                                for(int i = 0; i<membersArray.length(); i++) {
-                                    membersList.add(membersArray.getString(i));
-                                }
-                            }
-
-                            JSONArray res = new JSONArray(result);
-                            for(int i = 0; i<res.length(); i++) {
-                                JSONObject obj = new JSONObject(res.getString(i));
-                                list.add(obj);
-                            }
-                            List<JSONObject> jsonObjects = compareLists(list, membersList);
-                            ActivityOptionsCompat activityOptionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) v.getContext(), holder.houseImage,"imageMain");
-                            Intent in = new Intent((Activity) v.getContext(), CharacterActivity.class);
-                            in.putExtra("members", jsonObjects.toString());
-                            v.getContext().startActivity(in,activityOptionsCompat.toBundle());
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                        }
-
-                    }
-                });*/
-
-
             }
         });
 
@@ -263,10 +220,9 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
         return resList;
     }
 
-    // total number of rows
     @Override
     public int getItemCount() {
-        return mData.size();
+        return homeData.size();
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -308,36 +264,28 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             btnLoadMore = itemView.findViewById(R.id.btn_load_more);
             houseImage = itemView.findViewById(R.id.house_img);
 
-
-
             itemView.setOnClickListener(this);
         }
 
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
-                mClickListener.onItemClick(view, getAdapterPosition());
+            if (clickListener != null) {
+                clickListener.onItemClick(view, getAdapterPosition());
             }
 
         }
     }
 
-    // convenience method for getting data at click position
     JSONObject getItem(int id) {
-        return mData.get(id);
+        return homeData.get(id);
     }
 
-    // allows clicks events to be caught
     void setClickListener(ItemClickListener itemClickListener) {
-        this.mClickListener = itemClickListener;
+        this.clickListener = itemClickListener;
     }
 
-    // parent activity will implement this method to respond to click events
     public interface ItemClickListener {
         void onItemClick(View view, int position);
     }
-
-
-
 
 }

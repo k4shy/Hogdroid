@@ -16,23 +16,22 @@ import java.util.List;
 
 import za.co.kashvirsingh.hogdroid.R;
 
-public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder>{
+public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.ViewHolder> {
 
-    private List<JSONObject> mData;
-    private LayoutInflater mInflater;
-    private ItemClickListener mClickListener;
+    private List<JSONObject> characterData;
+    private LayoutInflater layoutInflater;
+    private ItemClickListener clickListener;
 
     public CharacterAdapter(Context context, List<JSONObject> data) {
-        this.mInflater = LayoutInflater.from(context);
+        this.layoutInflater = LayoutInflater.from(context);
 
-        this.mData = data;
+        this.characterData = data;
     }
-
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = mInflater.inflate(R.layout.character_list_item, parent, false);
+        View view = layoutInflater.inflate(R.layout.character_list_item, parent, false);
 
         return new ViewHolder(view);
     }
@@ -41,7 +40,7 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
         try {
-            String name = mData.get(position).get("name").toString();
+            String name = characterData.get(position).get("name").toString();
             holder.characterName.setText(name);
 
         } catch (JSONException e) {
@@ -59,12 +58,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             itemView.setOnClickListener(this);
         }
 
-
         @Override
         public void onClick(View view) {
-            if (mClickListener != null) {
+            if (clickListener != null) {
                 try {
-                    mClickListener.onItemClick(view, mData.get(getAdapterPosition()).getString("_id"));
+                    clickListener.onItemClick(view, characterData.get(getAdapterPosition()).getString("_id"));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
@@ -73,12 +71,12 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     }
 
     public void setOnItemClickListener(ItemClickListener clickListener) {
-        mClickListener = clickListener;
+        this.clickListener = clickListener;
     }
 
     @Override
     public int getItemCount() {
-        return mData.size();
+        return characterData.size();
     }
 
     public interface ItemClickListener {

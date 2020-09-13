@@ -22,8 +22,10 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import za.co.kashvirsingh.hogdroid.Utils.DevTools;
 import za.co.kashvirsingh.hogdroid.adapters.CharacterAdapter;
 import za.co.kashvirsingh.hogdroid.adapters.DialogDetailAdapter;
 import za.co.kashvirsingh.hogdroid.adapters.HomeRecyclerAdapter;
@@ -53,8 +55,7 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.main_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.addItemDecoration(new DividerItemDecoration(this,
-                DividerItemDecoration.VERTICAL));
+        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -187,16 +188,16 @@ public class MainActivity extends AppCompatActivity {
                             dialog.setTitle(character.getString("name") + " Info");
                             ListView myNames = dialog.findViewById(R.id.List);
                             ArrayList<String> characterList = new ArrayList<>();
-                            characterList.add("Name:" + character.getString("name"));
-                            characterList.add("Role:" + character.getString("role"));
-                            characterList.add("House:" + character.getString("house"));
-                            characterList.add("School:" + character.getString("school"));
-                            characterList.add("Ministry of Magic:" + character.getString("ministryOfMagic"));
-                            characterList.add("Order of The Phoenix:" + character.getString("orderOfThePhoenix"));
-                            characterList.add("Dumbledores Army:" + character.getString("dumbledoresArmy"));
-                            characterList.add("Death Eater:" + character.getString("deathEater"));
-                            characterList.add("Blood status:" + character.getString("bloodStatus"));
-                            characterList.add("Species:" + character.getString("species"));
+                            Iterator<String> keys = character.keys();
+                            while (keys.hasNext()) {
+                                String key = keys.next();
+                                if (key.equals("_id") || key.equals("__v")) {
+                                    continue;
+                                } else {
+                                    characterList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + character.getString(key));
+                                }
+                            }
+
                             DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
                             myNames.setAdapter(adapter);
                             dialog.show();
@@ -230,9 +231,16 @@ public class MainActivity extends AppCompatActivity {
                             dialog.setTitle(spell.getString("spell") + " Info");
                             ListView myNames = dialog.findViewById(R.id.List);
                             ArrayList<String> spellList = new ArrayList<>();
-                            spellList.add("Spell:" + spell.getString("spell"));
-                            spellList.add("Type:" + spell.getString("type"));
-                            spellList.add("Effect:" + spell.getString("effect"));
+                            Iterator<String> keys = spell.keys();
+                            while (keys.hasNext()) {
+                                String key = keys.next();
+                                if (key.equals("_id") || key.equals("__v")) {
+                                    continue;
+                                } else {
+                                    spellList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + spell.getString(key));
+                                }
+                            }
+
                             DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, spellList);
                             myNames.setAdapter(adapter);
                             dialog.show();

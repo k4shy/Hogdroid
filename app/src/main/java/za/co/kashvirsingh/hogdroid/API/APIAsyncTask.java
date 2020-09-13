@@ -29,7 +29,7 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
 
     RequestQueue queue;
     String baseURL = "https://www.potterapi.com/v1";
-    String key = "?key="+API_KEY;
+    String key = "?key=" + API_KEY;
 
     private EventListener callback;
     private Context context;
@@ -43,19 +43,18 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
 
     @Override
     protected HashMap<String, String> doInBackground(Void... voids) {
-        String url =  "";
         queue = Volley.newRequestQueue(context);
-
 
         switch (type.toUpperCase()) {
             case HOUSE:
-                String houseUrl = baseURL + urlHOUSE+key;
+                String houseUrl = baseURL + urlHOUSE + key;
                 StringRequest houseRequest = new StringRequest(Request.Method.GET, houseUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         HashMap<String, String> map = new HashMap<>();
-                        map.put(HOUSE,response);
-                        callback.onEventCompleted(map);                    }
+                        map.put(HOUSE, response);
+                        callback.onEventCompleted(map);
+                    }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -65,12 +64,12 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
                 queue.add(houseRequest);
                 break;
             case CHARACTERS:
-                String charactersUrl = baseURL + urlCHARACTERS+key;
+                String charactersUrl = baseURL + urlCHARACTERS + key;
                 StringRequest charactersRequest = new StringRequest(Request.Method.GET, charactersUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         HashMap<String, String> map = new HashMap<>();
-                        map.put(CHARACTERS,response);
+                        map.put(CHARACTERS, response);
                         callback.onEventCompleted(map);
                     }
                 }, new Response.ErrorListener() {
@@ -79,36 +78,33 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
                         Log.e(TAG, error.getLocalizedMessage() + "");
                     }
                 });
-                        queue.add(charactersRequest);
+                queue.add(charactersRequest);
 
                 break;
             case SPELLS:
-                String spellsUrl = baseURL + urlSPELLS+key;
+                String spellsUrl = baseURL + urlSPELLS + key;
                 StringRequest spellsRequest = new StringRequest(Request.Method.GET, spellsUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         HashMap<String, String> map = new HashMap<>();
-                        map.put(SPELLS,response);
-                        callback.onEventCompleted(map);            }
+                        map.put(SPELLS, response);
+                        callback.onEventCompleted(map);
+                    }
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.e(TAG, error.getLocalizedMessage() + "");
                     }
                 });
-                        queue.add(spellsRequest);
-
+                queue.add(spellsRequest);
                 break;
-
         }
-
-
         return null;
     }
 
     @Override
     protected void onPostExecute(HashMap<String, String> result) {
-        if(callback != null) {
+        if (callback != null) {
             callback.onEventCompleted(result);
         }
     }
