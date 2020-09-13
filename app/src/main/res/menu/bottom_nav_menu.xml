@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item
+        android:id="@+id/home_menu"
+        android:enabled="true"
+        android:icon="@drawable/house_icon"
+        android:title="Home"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/charater_menu"
+        android:enabled="true"
+        android:icon="@drawable/person_character_icon"
+        android:title="Characters"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/spell_menu"
+        android:enabled="true"
+        android:icon="@drawable/spell_icon"
+        android:title="Spells"
+        app:showAsAction="ifRoom" />
+</menu>
