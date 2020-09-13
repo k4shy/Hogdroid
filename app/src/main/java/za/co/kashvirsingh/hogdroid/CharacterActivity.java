@@ -1,15 +1,9 @@
 package za.co.kashvirsingh.hogdroid;
 
-import android.app.Activity;
-import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -25,7 +19,6 @@ import za.co.kashvirsingh.hogdroid.adapters.CharacterAdapter;
 import za.co.kashvirsingh.hogdroid.interfaces.Callback;
 
 import static za.co.kashvirsingh.hogdroid.Constants.CHARACTERS;
-import static za.co.kashvirsingh.hogdroid.Constants.SPELLS;
 
 public class CharacterActivity extends AppCompatActivity {
     CharacterAdapter adapter;
@@ -90,11 +83,5 @@ public class CharacterActivity extends AppCompatActivity {
             adapter = new CharacterAdapter(this, list);
             recyclerView.setAdapter(adapter);
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        list = new ArrayList<>();
-        adapter.notifyDataSetChanged();
     }
 }
