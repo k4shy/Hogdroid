@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -42,6 +43,16 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         try {
             String name = characterData.get(position).get("name").toString();
             holder.characterName.setText(name);
+            if (name.equals("Harry Potter") && characterData.get(position).get("alias").equals("The Boy Who Lived")) {
+                System.out.println(characterData.get(position));
+                holder.itemView.setOnLongClickListener(new View.OnLongClickListener() {
+                    @Override
+                    public boolean onLongClick(View v) {
+                        holder.profilepic.setImageResource(R.drawable.hp);
+                        return false;
+                    }
+                });
+            }
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -51,9 +62,11 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
 
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView characterName;
+        ImageView profilepic;
         ViewHolder(View itemView) {
             super(itemView);
             characterName = itemView.findViewById(R.id.character_name);
+            profilepic = itemView.findViewById(R.id.profile_pic);
 
             itemView.setOnClickListener(this);
         }

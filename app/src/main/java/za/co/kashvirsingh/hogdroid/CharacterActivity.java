@@ -1,7 +1,10 @@
 package za.co.kashvirsingh.hogdroid;
 
+import android.app.Dialog;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,10 +15,13 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import za.co.kashvirsingh.hogdroid.API.APIRequests;
+import za.co.kashvirsingh.hogdroid.Utils.DevTools;
 import za.co.kashvirsingh.hogdroid.adapters.CharacterAdapter;
+import za.co.kashvirsingh.hogdroid.adapters.DialogDetailAdapter;
 import za.co.kashvirsingh.hogdroid.interfaces.Callback;
 
 import static za.co.kashvirsingh.hogdroid.Constants.CHARACTERS;
@@ -82,6 +88,42 @@ public class CharacterActivity extends AppCompatActivity {
 
             adapter = new CharacterAdapter(this, list);
             recyclerView.setAdapter(adapter);
+
+
+            adapter.setOnItemClickListener(new CharacterAdapter.ItemClickListener() {
+                @Override
+                public void onItemClick(View view, String id) {
+                    for (JSONObject character : list) {
+                        try {
+                            String characterID = character.getString("_id");
+                            if (characterID.equals(id)) {
+                                final Dialog dialog = new Dialog(view.getContext());
+                                dialog.setContentView(R.layout.dialog_layout);
+                                dialog.setTitle(character.getString("name") + " Info");
+                                ListView myNames = dialog.findViewById(R.id.List);
+                                ArrayList<String> characterList = new ArrayList<>();
+                                Iterator<String> keys = character.keys();
+                                while (keys.hasNext()) {
+                                    String key = keys.next();
+                                    if (key.equals("_id") || key.equals("__v")) {
+                                        continue;
+                                    } else {
+                                        characterList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + character.getString(key));
+                                    }
+                                }
+
+                                DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
+                                myNames.setAdapter(adapter);
+                                dialog.show();
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+            });
+
         }
     }
 }

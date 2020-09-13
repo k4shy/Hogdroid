@@ -2,6 +2,7 @@ package za.co.kashvirsingh.hogdroid.API;
 
 import android.content.Context;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -65,6 +66,7 @@ public class APIRequests {
             @Override
             public void onErrorResponse(VolleyError error) {
                 Log.e(TAG, error.getLocalizedMessage() + "");
+                Toast.makeText(context, "Cannot connect to Potter Api", Toast.LENGTH_SHORT).show();
             }
         });
 

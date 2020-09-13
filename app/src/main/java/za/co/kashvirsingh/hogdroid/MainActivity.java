@@ -78,6 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
         initLists();
         imageView = findViewById(R.id.house_img);
+        initHouse(recyclerView, houseList, characterList);
     }
 
     private void initLists(){
@@ -114,6 +115,7 @@ public class MainActivity extends AppCompatActivity {
     public void onBackPressed() {
         if (doubleBackToExitPressedOnce) {
             super.onBackPressed();
+            finish();
             return;
         }
         this.doubleBackToExitPressedOnce = true;
@@ -126,11 +128,7 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        checkMenuItem(bottomNavigationView);
-    }
+/*
 
     private void checkMenuItem(BottomNavigationView bottomNavigationView) {
         MenuItem item = bottomNavigationView.getMenu().findItem(bottomNavigationView.getSelectedItemId());
@@ -160,7 +158,7 @@ public class MainActivity extends AppCompatActivity {
                 throw new IllegalStateException("Unexpected value: " + item.getItemId());
         }
 
-    }
+    }*/
 
       private void initHouse(RecyclerView recyclerView, List<JSONObject> list, List<JSONObject> characterList) {
         HomeRecyclerAdapter homeAdapter;
