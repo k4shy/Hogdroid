@@ -11,6 +11,7 @@
         android:src="@drawable/profile_pic" />
 
     <TextView
+        android:textColor="@color/colorText"
         android:layout_gravity="center_vertical"
         android:id="@+id/character_name"
         android:layout_width="match_parent"

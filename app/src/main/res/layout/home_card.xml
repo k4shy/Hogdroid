@@ -16,16 +16,10 @@
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
+            android:background="@color/colorPrimaryDark"
+
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-<!--            <ImageView
-                android:id="@+id/house_img"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:contentDescription="CardImageViewDesc"
-                android:scaleType="centerCrop"
-                android:src="@drawable/default_image" />-->
 
             <ImageView
                 android:id="@+id/house_img"
@@ -45,6 +39,7 @@
                 android:layout_below="@id/house_img"
                 android:layout_marginStart="10dp"
                 android:gravity="center_horizontal|start"
+                android:textColor="@color/colorText"
                 android:textSize="20dp"
                 android:textStyle="bold" />
 
@@ -60,6 +55,8 @@
                 android:gravity="end" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_mascot_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -73,6 +70,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_mascot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -84,6 +83,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_head_of_house_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -97,6 +98,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_head_of_house"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -108,6 +111,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_house_ghost_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,6 +126,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_house_ghost"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -132,6 +139,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_founder_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -145,6 +154,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_founder"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -156,6 +167,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_school_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -169,6 +182,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_school"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,7 +193,10 @@
                 android:text="Hai!"
                 android:textSize="12sp"
                 android:visibility="gone" />
+
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_values_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -192,6 +210,8 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
+
                 android:id="@+id/txt_more_values"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -201,8 +221,11 @@
                 android:text="Hai!"
                 android:textSize="12sp"
                 android:visibility="gone" />
+
             <TextView
                 android:id="@+id/txt_more_colors_label"
+                android:textColor="@color/colorText"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_values"
@@ -215,13 +238,13 @@
                 android:visibility="gone" />
 
             <TextView
+                android:textColor="@color/colorText"
                 android:id="@+id/txt_more_colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_colors_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
                 android:textSize="12sp"
                 android:visibility="gone" />
 

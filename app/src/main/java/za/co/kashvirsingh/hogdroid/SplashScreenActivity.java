@@ -32,7 +32,6 @@ public class SplashScreenActivity extends AppCompatActivity implements EventList
     public void onEventCompleted(HashMap<String, String> result) {
         if(result != null && result.size()>0) {
                 for (String key : result.keySet()) {
-                    System.out.println(key);
                     intent.putExtra(key, result.get(key));
                 }
                 if(intent.getExtras()!= null && (intent.getExtras().size() > 0 && intent.getExtras().size() == 3)){

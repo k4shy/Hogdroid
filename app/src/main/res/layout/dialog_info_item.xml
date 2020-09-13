@@ -5,6 +5,7 @@
     android:layout_height="match_parent">
 
     <TextView
+        android:textColor="@color/colorText"
         android:id="@+id/info_heading"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -15,6 +16,7 @@
         android:textStyle="bold" />
 
     <TextView
+        android:textColor="@color/colorText"
         android:id="@+id/info_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

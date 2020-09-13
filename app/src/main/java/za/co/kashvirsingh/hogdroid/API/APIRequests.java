@@ -71,7 +71,6 @@ public class APIRequests {
                 }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                System.out.println(error.getMessage());
                 Log.e(TAG, error.getLocalizedMessage() + "");
             }
         });

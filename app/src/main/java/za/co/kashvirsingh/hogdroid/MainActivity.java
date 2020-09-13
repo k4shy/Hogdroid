@@ -2,13 +2,16 @@ package za.co.kashvirsingh.hogdroid;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -40,6 +43,8 @@ public class MainActivity extends AppCompatActivity {
     List<JSONObject> houseList = new ArrayList<>();
     List<JSONObject> characterList = new ArrayList<>();
     List<JSONObject> spellList = new ArrayList<>();
+    boolean doubleBackToExitPressedOnce = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +53,8 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.main_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
+        recyclerView.addItemDecoration(new DividerItemDecoration(this,
+                DividerItemDecoration.VERTICAL));
         bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -79,7 +85,6 @@ public class MainActivity extends AppCompatActivity {
             houseList = new ArrayList<>();
             res = new JSONArray(getIntent().getStringExtra(HOUSE));
             for (int i = 0; i < res.length(); i++) {
-                System.out.println("HOUSE LIST " + i + " : " + res.getString(i));
                 JSONObject obj = new JSONObject(res.getString(i));
                 houseList.add(obj);
             }
@@ -87,7 +92,6 @@ public class MainActivity extends AppCompatActivity {
             characterList = new ArrayList<>();
             res = new JSONArray(getIntent().getStringExtra(CHARACTERS));
             for (int i = 0; i < res.length(); i++) {
-                System.out.println("Char LIST " + i + " : " + res.getString(i));
                 JSONObject obj = new JSONObject(res.getString(i));
                 characterList.add(obj);
             }
@@ -95,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
             spellList = new ArrayList<>();
             res = new JSONArray(getIntent().getStringExtra(SPELLS));
             for (int i = 0; i < res.length(); i++) {
-                System.out.println("Spell LIST " + i + " : " + res.getString(i));
                 JSONObject obj = new JSONObject(res.getString(i));
                 spellList.add(obj);
             }
@@ -105,13 +108,30 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    public void onBackPressed() {
+        if (doubleBackToExitPressedOnce) {
+            super.onBackPressed();
+            return;
+        }
+        this.doubleBackToExitPressedOnce = true;
+        Toast.makeText(this, "Press BACK again to exit", Toast.LENGTH_SHORT).show();
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                doubleBackToExitPressedOnce = false;
+            }
+        }, 2000);
+    }
+
     @Override
     protected void onResume() {
         super.onResume();
         checkMenuItem(bottomNavigationView);
     }
 
-    private void checkMenuItem(BottomNavigationView bottomNavigationView){
+    private void checkMenuItem(BottomNavigationView bottomNavigationView) {
         MenuItem item = bottomNavigationView.getMenu().findItem(bottomNavigationView.getSelectedItemId());
         switch (item.getItemId()) {
             case R.id.home_menu:
@@ -210,7 +230,6 @@ public class MainActivity extends AppCompatActivity {
                             dialog.setTitle(spell.getString("spell") + " Info");
                             ListView myNames = dialog.findViewById(R.id.List);
                             ArrayList<String> spellList = new ArrayList<>();
-                            System.out.println(spell);
                             spellList.add("Spell:" + spell.getString("spell"));
                             spellList.add("Type:" + spell.getString("type"));
                             spellList.add("Effect:" + spell.getString("effect"));

@@ -11,6 +11,7 @@
         android:src="@drawable/spell_profile_pic" />
 
     <TextView
+        android:textColor="@color/colorText"
         android:layout_gravity="center_vertical"
         android:id="@+id/spell_name"
         android:layout_width="match_parent"

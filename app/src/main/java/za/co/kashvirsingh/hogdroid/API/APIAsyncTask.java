@@ -43,7 +43,6 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
 
     @Override
     protected HashMap<String, String> doInBackground(Void... voids) {
-        System.out.println("DOING IN BACKGROUND....");
         String url =  "";
         queue = Volley.newRequestQueue(context);
 
@@ -60,7 +59,6 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
                         Log.e(TAG, error.getLocalizedMessage() + "");
                     }
                 });
@@ -78,7 +76,6 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
                         Log.e(TAG, error.getLocalizedMessage() + "");
                     }
                 });
@@ -96,7 +93,6 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        System.out.println(error.getMessage());
                         Log.e(TAG, error.getLocalizedMessage() + "");
                     }
                 });
@@ -112,7 +108,6 @@ public class APIAsyncTask extends AsyncTask<Void, Void, HashMap<String, String>>
 
     @Override
     protected void onPostExecute(HashMap<String, String> result) {
-        System.out.println("SENDING RESULT .....");
         if(callback != null) {
             callback.onEventCompleted(result);
         }
