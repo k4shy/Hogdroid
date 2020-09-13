@@ -7,11 +7,12 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <ImageView
+        android:scaleType="centerCrop"
         android:id="@+id/house_img_char"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:transitionName="imageMain"
-        android:background="@drawable/default_image"
+        android:src="@drawable/default_image"
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView

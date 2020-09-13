@@ -44,16 +44,16 @@ public class CharacterActivity extends AppCompatActivity {
         if (house.length() > 0) {
             switch (house.toLowerCase()) {
                 case "gryffindor":
-                    houseImage.setBackgroundResource(R.drawable.gryffindor_house);
+                    houseImage.setImageResource(R.drawable.gryffindor_house);
                     break;
                 case "ravenclaw":
-                    houseImage.setBackgroundResource(R.drawable.ravenclaw_house);
+                    houseImage.setImageResource(R.drawable.ravenclaw_house);
                     break;
                 case "slytherin":
-                    houseImage.setBackgroundResource(R.drawable.slytherin_house);
+                    houseImage.setImageResource(R.drawable.slytherin_house);
                     break;
                 case "hufflepuff":
-                    houseImage.setBackgroundResource(R.drawable.hufflepuff_house);
+                    houseImage.setImageResource(R.drawable.hufflepuff_house);
                     break;
             }
 
@@ -109,12 +109,13 @@ public class CharacterActivity extends AppCompatActivity {
                                         continue;
                                     } else {
                                         characterList.add(DevTools.splitCamelCase(key.substring(0, 1).toUpperCase() + key.substring(1)) + ":" + character.getString(key));
+
                                     }
                                 }
-
                                 DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
                                 myNames.setAdapter(adapter);
                                 dialog.show();
+
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();

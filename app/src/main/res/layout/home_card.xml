@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/tools"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/tools"
     android:orientation="vertical">
 
-    <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    <androidx.cardview.widget.CardView
         android:id="@+id/card_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,17 +15,17 @@
         card_view:cardCornerRadius="4dp">
 
         <RelativeLayout
-            android:background="@color/colorPrimaryDark"
-
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:background="@color/colorPrimaryDark">
 
             <ImageView
+                android:scaleType="centerCrop"
                 android:id="@+id/house_img"
                 android:layout_width="match_parent"
-                android:layout_height="200dp"
+                android:layout_height="400dp"
+                android:src="@drawable/default_image"
                 android:transitionName="imageMain"
-                android:background="@drawable/default_image"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintRight_toRightOf="parent"
@@ -45,7 +44,6 @@
 
             <Button
                 android:id="@+id/btn_load_more"
-
                 android:layout_width="25dp"
                 android:layout_height="25dp"
                 android:layout_below="@id/house_img"
@@ -55,8 +53,6 @@
                 android:gravity="end" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_mascot_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -65,26 +61,23 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="Mascot"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_mascot"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_mascot_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_head_of_house_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -93,26 +86,23 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="Head of House"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_head_of_house"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_head_of_house_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_house_ghost_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -121,26 +111,24 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="House Ghost"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_house_ghost"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_house_ghost_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_founder_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -149,26 +137,24 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="Founder"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_founder"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_founder_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_school_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -177,26 +163,24 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="School"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_school"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_school_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
-                android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_values_label"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -205,27 +189,26 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="Values"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
-
                 android:id="@+id/txt_more_values"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_values_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
                 android:text="Hai!"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 
             <TextView
                 android:id="@+id/txt_more_colors_label"
-                android:textColor="@color/colorText"
-
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_values"
@@ -233,18 +216,19 @@
                 android:paddingTop="5dp"
                 android:paddingBottom="3dp"
                 android:text="Colors"
+                android:textColor="@color/colorText"
                 android:textSize="17sp"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
             <TextView
-                android:textColor="@color/colorText"
                 android:id="@+id/txt_more_colors"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/txt_more_colors_label"
                 android:layout_marginStart="10dp"
                 android:paddingBottom="5dp"
+                android:textColor="@color/colorText"
                 android:textSize="12sp"
                 android:visibility="gone" />
 

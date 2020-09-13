@@ -4,6 +4,8 @@ import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.transition.AutoTransition;
+import android.transition.TransitionManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     private List<JSONObject> characterData;
     private LayoutInflater layoutInflater;
     private ItemClickListener clickListener;
+    ViewGroup parent;
 
     boolean showContent = true;
     int rotationAngle = 0;
@@ -43,7 +46,7 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = layoutInflater.inflate(R.layout.home_card, parent, false);
-
+        this.parent = parent;
         return new ViewHolder(view);
     }
 
@@ -64,16 +67,16 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
             if(house.length() > 0) {
                 switch (house.toLowerCase()) {
                     case "gryffindor":
-                        holder.houseImage.setBackgroundResource(R.drawable.gryffindor_house);
+                        holder.houseImage.setImageResource(R.drawable.gryffindor_house);
                         break;
                     case "ravenclaw":
-                        holder.houseImage.setBackgroundResource(R.drawable.ravenclaw_house);
+                        holder.houseImage.setImageResource(R.drawable.ravenclaw_house);
                         break;
                     case "slytherin":
-                        holder.houseImage.setBackgroundResource(R.drawable.slytherin_house);
+                        holder.houseImage.setImageResource(R.drawable.slytherin_house);
                         break;
                     case "hufflepuff":
-                        holder.houseImage.setBackgroundResource(R.drawable.hufflepuff_house);
+                        holder.houseImage.setImageResource(R.drawable.hufflepuff_house);
                         break;
                 }
             }
@@ -136,7 +139,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                     anim.setDuration(500);
                     anim.start();
                     rotationAngle += 180;
-                    rotationAngle = rotationAngle%360;
+                    rotationAngle = rotationAngle % 360;
+                    TransitionManager.beginDelayedTransition(parent, new AutoTransition());
                     showContent = false;
                 } else {
                     holder.txtMoreMascotLabel.setVisibility(View.GONE);
@@ -157,7 +161,8 @@ public class HomeRecyclerAdapter extends RecyclerView.Adapter<HomeRecyclerAdapte
                     anim.setDuration(500);
                     anim.start();
                     rotationAngle += 180;
-                    rotationAngle = rotationAngle%360;
+                    rotationAngle = rotationAngle % 360;
+                    TransitionManager.beginDelayedTransition(parent, new AutoTransition());
                     showContent = true;
                 }
             }

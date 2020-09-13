@@ -128,38 +128,6 @@ public class MainActivity extends AppCompatActivity {
         }, 2000);
     }
 
-/*
-
-    private void checkMenuItem(BottomNavigationView bottomNavigationView) {
-        MenuItem item = bottomNavigationView.getMenu().findItem(bottomNavigationView.getSelectedItemId());
-        switch (item.getItemId()) {
-            case R.id.home_menu:
-                houseList = new ArrayList<>();
-                JSONArray res = null;
-                try {
-                    res = new JSONArray(getIntent().getStringExtra(HOUSE));
-                    for (int i = 0; i < res.length(); i++) {
-                        System.out.println("HOUSE LIST " + i + " : " + res.getString(i));
-                        JSONObject obj = new JSONObject(res.getString(i));
-                        houseList.add(obj);
-                    }
-                    initHouse(recyclerView,houseList,characterList);
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                }
-                break;
-            case R.id.charater_menu:
-
-                break;
-            case R.id.spell_menu:
-
-                break;
-            default:
-                throw new IllegalStateException("Unexpected value: " + item.getItemId());
-        }
-
-    }*/
-
       private void initHouse(RecyclerView recyclerView, List<JSONObject> list, List<JSONObject> characterList) {
         HomeRecyclerAdapter homeAdapter;
         homeAdapter = new HomeRecyclerAdapter(this, list, characterList);
