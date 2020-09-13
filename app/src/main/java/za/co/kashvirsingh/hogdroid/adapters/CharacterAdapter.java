@@ -4,8 +4,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -58,7 +56,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
             super(itemView);
             characterName = itemView.findViewById(R.id.character_name);
 
-
             itemView.setOnClickListener(this);
         }
 
@@ -66,11 +63,18 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
         @Override
         public void onClick(View view) {
             if (mClickListener != null) {
-                mClickListener.onItemClick(view, getAdapterPosition());
+                try {
+                    mClickListener.onItemClick(view, mData.get(getAdapterPosition()).getString("_id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    public void setOnItemClickListener(ItemClickListener clickListener) {
+        mClickListener = clickListener;
+    }
 
     @Override
     public int getItemCount() {
@@ -78,6 +82,6 @@ public class CharacterAdapter extends RecyclerView.Adapter<CharacterAdapter.View
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, String position);
     }
 }

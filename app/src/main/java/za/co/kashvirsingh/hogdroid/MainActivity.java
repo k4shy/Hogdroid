@@ -1,15 +1,16 @@
 package za.co.kashvirsingh.hogdroid;
 
+import android.app.Dialog;
+import android.os.Bundle;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.ListView;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-import android.content.Intent;
-import android.os.Bundle;
-import android.view.MenuItem;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -21,6 +22,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import za.co.kashvirsingh.hogdroid.adapters.CharacterAdapter;
+import za.co.kashvirsingh.hogdroid.adapters.DialogDetailAdapter;
 import za.co.kashvirsingh.hogdroid.adapters.HomeRecyclerAdapter;
 import za.co.kashvirsingh.hogdroid.adapters.SpellsAdapter;
 
@@ -47,24 +49,19 @@ public class MainActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.main_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottom_navigation);
+        bottomNavigationView = findViewById(R.id.bottom_navigation);
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                Intent intent;
-                JSONArray res;
                 switch (item.getItemId()) {
                     case R.id.home_menu:
-                            initHouse(recyclerView,houseList,characterList);
-                        Toast.makeText(MainActivity.this, "House", Toast.LENGTH_SHORT).show();
+                        initHouse(recyclerView, houseList, characterList);
                         break;
                     case R.id.charater_menu:
- initCharacters(recyclerView,characterList);
-                        Toast.makeText(MainActivity.this, "Characters", Toast.LENGTH_SHORT).show();
+                        initCharacters(recyclerView, characterList);
                         break;
                     case R.id.spell_menu:
-  initSpells(recyclerView,spellList);
-                        Toast.makeText(MainActivity.this, "Spells", Toast.LENGTH_SHORT).show();
+                        initSpells(recyclerView, spellList);
                         break;
                     default:
                         throw new IllegalStateException("Unexpected value: " + item.getItemId());
@@ -72,11 +69,8 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
         });
-
         initLists();
         imageView = findViewById(R.id.house_img);
-
-
     }
 
     private void initLists(){
@@ -106,7 +100,6 @@ public class MainActivity extends AppCompatActivity {
                 spellList.add(obj);
             }
 
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
@@ -135,8 +128,6 @@ public class MainActivity extends AppCompatActivity {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                Toast.makeText(MainActivity.this, "Houses", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.charater_menu:
 
@@ -164,6 +155,40 @@ public class MainActivity extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(characterAdapter);
 
+        characterAdapter.setOnItemClickListener(new CharacterAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, String id) {
+                for (JSONObject character : characterList) {
+                    try {
+                        String characterID = character.getString("_id");
+                        if (characterID.equals(id)) {
+                            final Dialog dialog = new Dialog(view.getContext());
+                            dialog.setContentView(R.layout.dialog_layout);
+                            dialog.setTitle(character.getString("name") + " Info");
+                            ListView myNames = dialog.findViewById(R.id.List);
+                            ArrayList<String> characterList = new ArrayList<>();
+                            characterList.add("Name:" + character.getString("name"));
+                            characterList.add("Role:" + character.getString("role"));
+                            characterList.add("House:" + character.getString("house"));
+                            characterList.add("School:" + character.getString("school"));
+                            characterList.add("Ministry of Magic:" + character.getString("ministryOfMagic"));
+                            characterList.add("Order of The Phoenix:" + character.getString("orderOfThePhoenix"));
+                            characterList.add("Dumbledores Army:" + character.getString("dumbledoresArmy"));
+                            characterList.add("Death Eater:" + character.getString("deathEater"));
+                            characterList.add("Blood status:" + character.getString("bloodStatus"));
+                            characterList.add("Species:" + character.getString("species"));
+                            DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, characterList);
+                            myNames.setAdapter(adapter);
+                            dialog.show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
+
     }
 
     private void initSpells(RecyclerView recyclerView, List<JSONObject> list) {
@@ -172,6 +197,34 @@ public class MainActivity extends AppCompatActivity {
         spellsAdapter = new SpellsAdapter(this, list);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(spellsAdapter);
+
+        spellsAdapter.setOnItemClickListener(new SpellsAdapter.ItemClickListener() {
+            @Override
+            public void onItemClick(View view, String id) {
+                for (JSONObject spell : spellList) {
+                    try {
+                        String spellID = spell.getString("_id");
+                        if (spellID.equals(id)) {
+                            final Dialog dialog = new Dialog(view.getContext());
+                            dialog.setContentView(R.layout.dialog_layout);
+                            dialog.setTitle(spell.getString("spell") + " Info");
+                            ListView myNames = dialog.findViewById(R.id.List);
+                            ArrayList<String> spellList = new ArrayList<>();
+                            System.out.println(spell);
+                            spellList.add("Spell:" + spell.getString("spell"));
+                            spellList.add("Type:" + spell.getString("type"));
+                            spellList.add("Effect:" + spell.getString("effect"));
+                            DialogDetailAdapter adapter = new DialogDetailAdapter(view.getContext(), R.layout.dialog_info_item, spellList);
+                            myNames.setAdapter(adapter);
+                            dialog.show();
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+            }
+        });
     }
 
 }

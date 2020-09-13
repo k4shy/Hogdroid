@@ -20,7 +20,7 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
 
     private List<JSONObject> mData;
     private LayoutInflater mInflater;
-    private CharacterAdapter.ItemClickListener mClickListener;
+    private ItemClickListener mClickListener;
 
     public SpellsAdapter(Context context, List<JSONObject> data) {
         this.mInflater = LayoutInflater.from(context);
@@ -64,11 +64,18 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
         @Override
         public void onClick(View view) {
             if (mClickListener != null) {
-                mClickListener.onItemClick(view, getAdapterPosition());
+                try {
+                    mClickListener.onItemClick(view, mData.get(getAdapterPosition()).getString("_id"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         }
     }
 
+    public void setOnItemClickListener(ItemClickListener clickListener) {
+        mClickListener = clickListener;
+    }
 
     @Override
     public int getItemCount() {
@@ -76,6 +83,6 @@ public class SpellsAdapter extends RecyclerView.Adapter<SpellsAdapter.ViewHolder
     }
 
     public interface ItemClickListener {
-        void onItemClick(View view, int position);
+        void onItemClick(View view, String id);
     }
 }
